@@ -2,6 +2,38 @@
 __pycache__/
 *.pyc
 *.pyo
+
 *.db
+
+.env
+
 .DS_Store
+
 venv/
+env/
+
+docker-compose.yml
+docker-compose.yaml
+
+.vscode/
+.idea/
+*.swp
+
+# Log files
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Pytest cache
+.cache/
+
+# Build directories
+build/
+dist/
+*.egg-info/
