@@ -28,7 +28,7 @@ def login():
             token = jwt.encode({
                 'user_id': account['user_id'],
                 'username': account['username'],
-                'exp': datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
+                'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
                 }, current_app.secret_key, algorithm='HS256')
 
             response = make_response(redirect(url_for('home.home')))
