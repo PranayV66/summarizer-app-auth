@@ -20,7 +20,7 @@ def login():
         
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
+            session['user_id'] = account['user_id']
             session['username'] = account['username']
             return redirect(url_for('home.home'))
         else:
