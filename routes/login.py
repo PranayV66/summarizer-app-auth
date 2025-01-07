@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, g, current_app, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, session, g, current_app, make_response #type: ignore
 from . import mysql
 import jwt
 import datetime
-import MySQLdb.cursors
+import MySQLdb.cursors #type: ignore
 import hashlib
 
 login_bp = Blueprint('login', __name__)
@@ -32,7 +32,8 @@ def login():
                 }, current_app.secret_key, algorithm='HS256')
 
             response = make_response(redirect(url_for('home.home')))
-            response.set_cookie('token', token, httponly=True, secure=True, samesite='Strict')
+            response.set_cookie('token', token, httponly=True, secure=False, samesite='Strict', domain=current_app.domain)
+            # response.set_cookie('token', token, httponly=True, secure=True, samesite='Strict')
             return response
             # return redirect(url_for('home.home'))
         else:

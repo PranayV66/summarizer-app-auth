@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask #type: ignore
 import os
 from routes import init_app
 
 app = Flask(__name__, template_folder='templates')
 
 app.secret_key = os.environ.get('APP_SECRET_KEY')
+app.domain = os.environ.get('APP_DOMAIN')
 
 app.config['MYSQL_HOST'] = os.environ.get('SQL_HOST')
 app.config['MYSQL_USER'] = os.environ.get('SQL_USER')
