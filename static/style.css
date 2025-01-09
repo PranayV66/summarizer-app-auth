@@ -146,6 +146,13 @@ body {
 .navtop div a:hover {
     color: #eaebed;
 }
+.navtop div h1 a {
+    color: #eaebed;
+    text-decoration: none;
+}
+.navtop div h1 a:hover {
+    color: #ffdd57;
+}
 body.loggedin {
     background-color: #121212;
 }
@@ -168,7 +175,7 @@ body.loggedin {
     padding: 25px 0;
     font-size: 22px;
     border-bottom: 1px solid #e0e0e3;
-    color: #4a536e;
+    color: #ffffff;
 }
 .content > p, .content > div {
     box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.1);
@@ -188,6 +195,10 @@ body.loggedin {
 .content > div p {
   padding: 5px;
   margin: 0 0 10px 0;
+}
+.content table tr td:first-child {
+    color: #ffffff;
+    font-weight: bold;
 }
 button {
     background-color: #333333;
