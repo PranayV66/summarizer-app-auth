@@ -30,6 +30,7 @@ def login():
                 'username': account['username'],
                 'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
                 }, current_app.secret_key, algorithm='HS256')
+            print ("Token in login.py: ", token)
 
             response = make_response(redirect(url_for('home.home')))
             response.set_cookie('token', token, httponly=True, secure=False, samesite='Strict', domain=current_app.domain)
