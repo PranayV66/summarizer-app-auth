@@ -8,7 +8,7 @@
 body {
     background-color: #121212;
     color: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .login, .register {
     width: 400px;
@@ -147,14 +147,14 @@ body {
     color: #eaebed;
 }
 body.loggedin {
-    background-color: #f3f4f7;
+    background-color: #121212;
 }
 .content {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
     background-color: #1e1e1e;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
 }
 .content a {
@@ -171,10 +171,11 @@ body.loggedin {
     color: #4a536e;
 }
 .content > p, .content > div {
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.1);
     margin: 25px 0;
     padding: 25px;
-  background-color: #fff;
+    background-color: #1e1e1e;
+    color: #ffffff;
 }
 .content > p table td, .content > div table td {
   padding: 5px;
