@@ -40,7 +40,7 @@ jobs:
       - name: Helm Dependencies Update
         run: helm dependency update ./charts/auth
 
-       name: Deploy Helm Chart
+      - name: Deploy Helm Chart
         env:
           APP_SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
           SQL_USER: ${{ secrets.SQL_USER }}
