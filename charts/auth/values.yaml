@@ -1,0 +1,63 @@
+replicaCount: 2
+
+image:
+  repository: "{{ .Values.secrets.imageRepository }}"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+env:
+  APP_SECRET_KEY: {{ .Values.secrets.appSecretKey }}
+  SQL_HOST: db
+  SQL_USER: {{ .Values.secrets.sqlUser }}
+  SQL_PASSWORD: {{ .Values.secrets.sqlPassword }}
+  SQL_DB: {{ .Values.secrets.sqlDb }}
+  APP_DOMAIN: {{ .Values.secrets.appDomain }}
+
+secrets:
+  imageRepository: ""
+  appSecretKey: ""
+  sqlUser: ""
+  sqlPassword: ""
+  sqlDb: ""
+  appDomain: ""
+
+mysql:
+  enabled: true
+  replicaCount: 2
+  auth:
+    rootPassword: {{ .Values.secrets.sqlPassword }}
+    username: {{ .Values.secrets.sqlUser }}
+    password: {{ .Values.secrets.sqlPassword }}
+    database: {{ .Values.secrets.sqlDb }}
+
+  primary:
+    initdbScripts:
+      init.sql: |
+        CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+        USE `users`;
+
+        CREATE TABLE IF NOT EXISTS `accounts` (
+            `user_id` INT NOT NULL AUTO_INCREMENT,
+            `username` VARCHAR(100) NOT NULL,
+            `password` VARCHAR(255) NOT NULL,
+            `email` VARCHAR(100) NOT NULL,
+            PRIMARY KEY (`user_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  service:
+    port: 3306
+
+nodeSelector:
+  ingress-zone: "1b"
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"

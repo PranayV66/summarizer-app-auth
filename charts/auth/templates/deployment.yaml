@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "summarize-ai-auth.fullname" . }}
+  labels:
+    app: {{ include "summarize-ai-auth.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "summarize-ai-auth.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "summarize-ai-auth.name" . }}
+    spec:
+      nodeSelector:
+        ingress-zone: "1b"
+      containers:
+        - name: summarize-ai-auth
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 5000
+          env:
+            - name: APP_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: APP_SECRET_KEY
+            - name: SQL_HOST
+              value: "{{ .Values.env.SQL_HOST }}"
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: SQL_USER
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: SQL_PASSWORD
+            - name: SQL_DB
+              value: "{{ .Values.env.SQL_DB }}"
+            - name: APP_DOMAIN
+              value: "{{ .Values.env.APP_DOMAIN }}"
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
