@@ -1,0 +1,10 @@
+apiVersion: v2
+name: summarize-ai-auth
+description: "Helm Chart for Auth Microservice"
+type: application
+version: 0.1.0
+appVersion: "1.0"
+dependencies:
+  - name: db
+    version: 8.4.3
+    repository: "https://charts.bitnami.com/bitnami"
