@@ -49,6 +49,7 @@ jobs:
           APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
         run: |
           helm upgrade --install auth ./charts/auth \
+            --set image.repository="${IMAGE_REPOSITORY}" \
             --set image.tag=${{ github.sha }} \
             --set secrets.appSecretKey="${APP_SECRET_KEY}" \
             --set secrets.sqlUser="${SQL_USER}" \

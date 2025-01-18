@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: "{{ .Values.secrets.imageRepository }}"
+  repository: ""
   tag: "latest"
   pullPolicy: IfNotPresent
 
@@ -10,12 +10,12 @@ service:
   port: 5000
 
 env:
-  APP_SECRET_KEY: {{ .Values.secrets.appSecretKey }}
+  APP_SECRET_KEY: ""
   SQL_HOST: db
-  SQL_USER: {{ .Values.secrets.sqlUser }}
-  SQL_PASSWORD: {{ .Values.secrets.sqlPassword }}
-  SQL_DB: {{ .Values.secrets.sqlDb }}
-  APP_DOMAIN: {{ .Values.secrets.appDomain }}
+  SQL_USER: ""
+  SQL_PASSWORD: ""
+  SQL_DB: ""
+  APP_DOMAIN: ""
 
 secrets:
   imageRepository: ""
@@ -29,10 +29,10 @@ mysql:
   enabled: true
   replicaCount: 2
   auth:
-    rootPassword: {{ .Values.secrets.sqlPassword }}
-    username: {{ .Values.secrets.sqlUser }}
-    password: {{ .Values.secrets.sqlPassword }}
-    database: {{ .Values.secrets.sqlDb }}
+    rootPassword: ""
+    username: ""
+    password: ""
+    database: ""
 
   primary:
     initdbScripts:
