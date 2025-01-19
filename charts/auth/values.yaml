@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: ""
-  tag: "latest"
+  tag: ""
   pullPolicy: IfNotPresent
 
 service:
@@ -11,28 +11,40 @@ service:
 
 env:
   APP_SECRET_KEY: ""
-  SQL_HOST: db
+  SQL_HOST: ""
   SQL_USER: ""
   SQL_PASSWORD: ""
   SQL_DB: ""
   APP_DOMAIN: ""
 
 secrets:
-  imageRepository: ""
-  appSecretKey: ""
-  sqlUser: ""
-  sqlPassword: ""
-  sqlDb: ""
-  appDomain: ""
+  summarize-ai-auth:
+    secretName: "auth-secrets"
+      keys:
+        sql_user: "SQL_USER"
+        sql_password: "SQL_PASSWORD"
+        sql_db: "SQL_DB"
+        sql_host: "SQL_HOST"
+        app_secret_key: "APP_SECRET_KEY"
+        app_domain: "APP_DOMAIN"
+
+  mysql:
+    secretName: "mysql-secrets"
+      keys:
+        sql_user: "SQL_USER"
+        sql_password: "SQL_PASSWORD"
+        sql_db: "SQL_DB"
+        sql_host: "SQL_HOST"
 
 mysql:
   enabled: true
   replicaCount: 2
   auth:
-    rootPassword: ""
-    username: ""
-    password: ""
-    database: ""
+    existingSecret: "mysql-secrets"
+    rootPassword: "sql_password"
+    username: "sql_user"
+    password: "sql_password"
+    database: "sql_db"
 
   primary:
     initdbScripts:
@@ -61,3 +73,15 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
+
+networkPolicy:
+  enabled: true
+  allowFlaskToMysql:
+    ingress:
+      - from:
+          - podSelector:
+              matchLabels:
+                app: summarize-ai-auth
+        ports:
+          - protocol: TCP
+            port: 3306

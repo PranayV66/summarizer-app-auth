@@ -32,6 +32,11 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+        - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
       - name: Set up Helm
         uses: azure/setup-helm@v4.2.0
         with:
@@ -39,20 +44,3 @@ jobs:
 
       - name: Helm Dependencies Update
         run: helm dependency update ./charts/auth
-
-      - name: Deploy Helm Chart
-        env:
-          APP_SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
-          SQL_USER: ${{ secrets.SQL_USER }}
-          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-          SQL_DB: ${{ secrets.SQL_DB }}
-          APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
-        run: |
-          helm upgrade --install auth ./charts/auth \
-            --set image.repository="${IMAGE_REPOSITORY}" \
-            --set image.tag=${{ github.sha }} \
-            --set secrets.appSecretKey="${APP_SECRET_KEY}" \
-            --set secrets.sqlUser="${SQL_USER}" \
-            --set secrets.sqlPassword="${SQL_PASSWORD}" \
-            --set secrets.sqlDb="${SQL_DB}" \
-            --set secrets.appDomain="${APP_DOMAIN}"
