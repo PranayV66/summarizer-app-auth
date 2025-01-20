@@ -40,6 +40,7 @@ nodeSelector:
 
 mysql:
   enabled: true
+  architecture: standalone
   replicaCount: 1
   auth:
     existingSecret: "mysql-secrets"
@@ -49,6 +50,11 @@ mysql:
     database: "SQL_DB"
 
   primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+      storageClass: "local-storage"
+      accessMode: ReadWriteOnce
     initdbScripts:
       init.sql: |
         CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -64,11 +70,6 @@ mysql:
 
   service:
     port: 3306
-
-  persistence:
-    enabled: true
-    storageClass: "local-storage"
-    size: 8Gi
 
 resources:
   limits:
