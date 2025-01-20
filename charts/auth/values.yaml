@@ -17,24 +17,6 @@ env:
   SQL_DB: ""
   APP_DOMAIN: ""
 
-secrets:
-  summarize-ai-auth:
-    secretName: "auth-secrets"
-    keys:
-      sql_user: "SQL_USER"
-      sql_password: "SQL_PASSWORD"
-      sql_db: "SQL_DB"
-      sql_host: "SQL_HOST"
-      app_secret_key: "APP_SECRET_KEY"
-      app_domain: "APP_DOMAIN"
-
-  mysql:
-    secretName: "mysql-secrets"
-    keys:
-      sql_user: "SQL_USER"
-      sql_password: "SQL_PASSWORD"
-      sql_db: "SQL_DB"
-
 nodeSelector:
   ingress-zone: "1b"
 
@@ -43,11 +25,8 @@ mysql:
   architecture: standalone
   replicaCount: 1
   auth:
+    createDatabase: true
     existingSecret: "mysql-secrets"
-    rootPassword: "SQL_PASSWORD"
-    username: "SQL_USER"
-    password: "SQL_PASSWORD"
-    database: "SQL_DB"
 
   primary:
     persistence:
