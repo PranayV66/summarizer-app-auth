@@ -35,9 +35,12 @@ secrets:
       sql_password: "SQL_PASSWORD"
       sql_db: "SQL_DB"
 
+nodeSelector:
+  ingress-zone: "1b"
+
 mysql:
   enabled: true
-  replicaCount: 2
+  replicaCount: 1
   auth:
     existingSecret: "mysql-secrets"
     rootPassword: "SQL_PASSWORD"
@@ -64,11 +67,8 @@ mysql:
 
   persistence:
     enabled: true
-    storageClass: "ebs-gp2"
+    storageClass: "local-storage"
     size: 8Gi
-
-nodeSelector:
-  ingress-zone: "1b"
 
 resources:
   limits:
