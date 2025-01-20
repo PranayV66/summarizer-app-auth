@@ -89,3 +89,13 @@ networkPolicy:
         ports:
           - protocol: TCP
             port: 3306
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: local-storage
+              operator: In
+              values:
+                - "enabled"
