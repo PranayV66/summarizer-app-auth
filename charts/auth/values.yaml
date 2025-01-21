@@ -59,6 +59,9 @@ resources:
     cpu: "250m"
     memory: "256Mi"
 
+networkPolicy:
+  enabled: false
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
