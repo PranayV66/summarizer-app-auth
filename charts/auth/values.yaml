@@ -23,6 +23,8 @@ nodeSelector:
 mysql:
   enabled: true
   architecture: standalone
+  networkPolicy:
+    enabled: false
   initdbScripts:
       init.sql: |
         CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -38,7 +40,6 @@ mysql:
   auth:
     createDatabase: false
     existingSecret: "mysql-secrets"
-
   primary:
     podLabels:
       app: summarize-ai-auth-mysql
@@ -47,7 +48,6 @@ mysql:
       size: 8Gi
       storageClass: "local-storage"
       accessMode: ReadWriteOnce
-
   service:
     port: 3306
 
@@ -58,16 +58,3 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
-
-networkPolicy:
-  enabled: false
-
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: local-storage
-              operator: In
-              values:
-                - "enabled"
