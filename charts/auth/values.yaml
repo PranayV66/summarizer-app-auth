@@ -40,6 +40,8 @@ mysql:
     existingSecret: "mysql-secrets"
 
   primary:
+    podLabels:
+      app: summarize-ai-auth-mysql
     persistence:
       enabled: true
       size: 8Gi
@@ -56,18 +58,6 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
-
-networkPolicy:
-  enabled: true
-  allowFlaskToMysql:
-    ingress:
-      - from:
-          - podSelector:
-              matchLabels:
-                app: summarize-ai-auth
-        ports:
-          - protocol: TCP
-            port: 3306
 
 affinity:
   nodeAffinity:
