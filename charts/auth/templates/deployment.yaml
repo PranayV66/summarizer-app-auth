@@ -17,6 +17,8 @@ spec:
     spec:
       nodeSelector:
         ingress-zone: "1b"
+      imagePullSecrets:
+        - name: ecr-secret
       containers:
         - name: summarize-ai-auth
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
