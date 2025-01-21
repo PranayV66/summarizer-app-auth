@@ -1,13 +1,14 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ include "summarize-ai-auth.fullname" . }}
-#   labels:
-#     app: {{ include "summarize-ai-auth.name" . }}
-# spec:
-#   type: {{ .Values.service.type }}
-#   ports:
-#     - port: {{ .Values.service.port }}
-#       targetPort: 5000
-#   selector:
-#     app: {{ include "summarize-ai-auth.name" . }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "summarize-ai-auth-svc"
+  labels:
+    app: "summarize-ai-auth-svc"
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: "summarize-ai-auth"
+  ports:
+    - port: {{ .Values.service.port }}
+      # targetPort: 5000
+      NodePort: {{ .Values.service.nodePort }}

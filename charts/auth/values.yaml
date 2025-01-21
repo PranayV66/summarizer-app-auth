@@ -4,15 +4,10 @@ image:
   tag: "cd950778f038204ab91a3801c8bd4d6f43a36396"
   pullPolicy: IfNotPresent
 service:
-  type: ClusterIP
+  # type: ClusterIP
+  type: NodePort
   port: 5000
-env:
-  APP_SECRET_KEY: ""
-  SQL_HOST: ""
-  SQL_USER: ""
-  SQL_PASSWORD: ""
-  SQL_DB: ""
-  APP_DOMAIN: ""
+  nodePort: 30007
 nodeSelector:
   ingress-zone: "1b"
 resources:
