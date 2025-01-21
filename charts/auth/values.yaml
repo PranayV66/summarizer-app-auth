@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-auth"
-  tag: "cd950778f038204ab91a3801c8bd4d6f43a36396"
+  tag: "59c9cec5337ec23c46bb3d7125d44ebe49b5ba8e"
   pullPolicy: IfNotPresent
 service:
   # type: ClusterIP
