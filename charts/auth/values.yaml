@@ -20,6 +20,14 @@ env:
 nodeSelector:
   ingress-zone: "1b"
 
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
 mysql:
   enabled: true
   architecture: standalone
@@ -50,11 +58,3 @@ mysql:
       accessMode: ReadWriteOnce
   service:
     port: 3306
-
-resources:
-  limits:
-    cpu: "500m"
-    memory: "512Mi"
-  requests:
-    cpu: "250m"
-    memory: "256Mi"

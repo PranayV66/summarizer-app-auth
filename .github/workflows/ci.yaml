@@ -44,3 +44,33 @@ jobs:
 
       - name: Helm Dependencies Update
         run: helm dependency update ./charts/auth
+
+      - name: Update image tag in values.yaml
+        run: |
+          yq eval '.image.repository = env.ECR_REGISTRY + "/" + env.ECR_REPOSITORY' -i ./charts/auth/values.yaml
+          yq eval '.image.tag = env.IMAGE_TAG' -i ./charts/auth/values.yaml
+
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add ./charts/auth/values.yaml
+          git commit -m "Set .image.repository and .image.tag to $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" || echo "No changes to commit"
+
+      - name: Increment Chart Version and commit to Git
+        run: |
+          current_version=$(yq eval '.version' ./charts/auth/Chart.yaml)
+          IFS='.' read -r major minor patch <<< "$current_version"
+          patch=$((patch+1))
+          new_version="$major.$minor.$patch"
+          echo "Current version: $current_version"
+          echo "New version: $new_version"
+          yq eval ".version = \"$new_version\"" -i ./charts/auth/Chart.yaml
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add ./charts/auth/Chart.yaml
+          git commit -m "Incremented chart version" || echo "No changes to commit"
+
+      - name: Push changes to the k8s branch
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          branch: k8s
