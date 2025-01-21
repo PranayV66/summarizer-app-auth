@@ -1,14 +1,11 @@
 replicaCount: 2
-
 image:
-  repository: ""
+  repository: "/"
   tag: ""
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 5000
-
 env:
   APP_SECRET_KEY: ""
   SQL_HOST: ""
@@ -16,10 +13,8 @@ env:
   SQL_PASSWORD: ""
   SQL_DB: ""
   APP_DOMAIN: ""
-
 nodeSelector:
   ingress-zone: "1b"
-
 resources:
   limits:
     cpu: "500m"
@@ -27,24 +22,23 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
-
 mysql:
   enabled: true
   architecture: standalone
   networkPolicy:
     enabled: false
   initdbScripts:
-      init.sql: |
-        CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-        USE `users`;
+    init.sql: |
+      CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+      USE `users`;
 
-        CREATE TABLE IF NOT EXISTS `accounts` (
-            `user_id` INT NOT NULL AUTO_INCREMENT,
-            `username` VARCHAR(100) NOT NULL,
-            `password` VARCHAR(255) NOT NULL,
-            `email` VARCHAR(100) NOT NULL,
-            PRIMARY KEY (`user_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+      CREATE TABLE IF NOT EXISTS `accounts` (
+          `user_id` INT NOT NULL AUTO_INCREMENT,
+          `username` VARCHAR(100) NOT NULL,
+          `password` VARCHAR(255) NOT NULL,
+          `email` VARCHAR(100) NOT NULL,
+          PRIMARY KEY (`user_id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
   auth:
     createDatabase: false
     existingSecret: "mysql-secrets"
