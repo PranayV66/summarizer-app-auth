@@ -47,8 +47,8 @@ jobs:
 
       - name: Update image tag in values.yaml
         run: |
-          yq eval '.image.repository = env.ECR_REGISTRY + "/" + env.ECR_REPOSITORY' -i ./charts/auth/values.yaml
-          yq eval '.image.tag = env.IMAGE_TAG' -i ./charts/auth/values.yaml
+          yq eval '.image.repository = strenv(ECR_REGISTRY) + "/" + strenv(ECR_REPOSITORY)' -i ./charts/auth/values.yaml
+          yq eval '.image.tag = strenv(IMAGE_TAG)' -i ./charts/auth/values.yaml
 
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
