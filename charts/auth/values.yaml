@@ -22,19 +22,8 @@ nodeSelector:
 
 mysql:
   enabled: true
-  architecture: replication
-  replicaCount: 1
-  auth:
-    createDatabase: true
-    existingSecret: "mysql-secrets"
-
-  primary:
-    persistence:
-      enabled: true
-      size: 8Gi
-      storageClass: "local-storage"
-      accessMode: ReadWriteOnce
-    initdbScripts:
+  architecture: standalone
+  initdbScripts:
       init.sql: |
         CREATE DATABASE IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
         USE `users`;
@@ -46,6 +35,16 @@ mysql:
             `email` VARCHAR(100) NOT NULL,
             PRIMARY KEY (`user_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  auth:
+    createDatabase: true
+    existingSecret: "mysql-secrets"
+
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+      storageClass: "local-storage"
+      accessMode: ReadWriteOnce
 
   service:
     port: 3306
