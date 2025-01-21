@@ -45,7 +45,7 @@ jobs:
       - name: Helm Dependencies Update
         run: helm dependency update ./charts/auth
 
-      - name: Update image tag in values.yaml
+      - name: Update image tag in values.yaml and commit to Git
         run: |
           yq eval '.image.repository = strenv(ECR_REGISTRY) + "/" + strenv(ECR_REPOSITORY)' -i ./charts/auth/values.yaml
           yq eval '.image.tag = strenv(IMAGE_TAG)' -i ./charts/auth/values.yaml
@@ -69,6 +69,7 @@ jobs:
           git add ./charts/auth/Chart.yaml
           git commit -m "Incremented chart version" || echo "No changes to commit"
 
+      # Push to Github
       - name: Push changes to the k8s branch
         uses: ad-m/github-push-action@v0.6.0
         with:
