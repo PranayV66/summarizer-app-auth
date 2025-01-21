@@ -22,7 +22,7 @@ nodeSelector:
 
 mysql:
   enabled: true
-  architecture: standalone
+  architecture: replication
   replicaCount: 1
   auth:
     createDatabase: true
