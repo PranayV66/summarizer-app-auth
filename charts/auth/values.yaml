@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-auth"
-  tag: "37227040f06f518b23f67984c60dba24b0743534"
+  tag: "8ae3457601b20eaa3ee4ab4967a8a8e626c716da"
   pullPolicy: IfNotPresent
 service:
   # type: ClusterIP
@@ -14,9 +14,9 @@ resources:
   limits:
     cpu: "500m"
     memory: "512Mi"
-  # requests:
-  #   cpu: "250m"
-  #   memory: "256Mi"
+    # requests:
+    #   cpu: "250m"
+    #   memory: "256Mi"
 mysql:
   enabled: true
   architecture: standalone
