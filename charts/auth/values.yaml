@@ -5,7 +5,7 @@ image:
   pullPolicy: IfNotPresent
 service:
   # type: ClusterIP
-  type: NodePort
+  type: nodePort
   port: 5000
   nodePort: 30007
 nodeSelector:
