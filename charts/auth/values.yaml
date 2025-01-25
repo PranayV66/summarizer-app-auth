@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-auth"
-  tag: "0e1e65c3aeb9ae1930419a76fd3cea590cc3809d"
+  tag: "b70b928d188e9b5c54a58f00f5d3d77ba74b07b1"
   pullPolicy: IfNotPresent
 service:
   port: 5000
