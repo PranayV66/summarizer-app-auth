@@ -4,10 +4,7 @@ image:
   tag: "0e1e65c3aeb9ae1930419a76fd3cea590cc3809d"
   pullPolicy: IfNotPresent
 service:
-  # type: ClusterIP
-  type: NodePort
   port: 5000
-  nodePort: 30007
 nodeSelector:
   ingress-zone: "1b"
 resources:

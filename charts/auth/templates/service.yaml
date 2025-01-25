@@ -11,5 +11,3 @@ spec:
     app: "summarize-ai-auth"
   ports:
     - port: {{ .Values.service.port }}
-      # targetPort: 5000
-      nodePort: {{ .Values.service.nodePort }}

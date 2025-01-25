@@ -4,7 +4,7 @@ import re, hashlib
 
 register_bp = Blueprint('register', __name__)
 
-@register_bp.route('/register', methods=['GET', 'POST'])
+@register_bp.route('/auth/register', methods=['GET', 'POST'])
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
