@@ -21,6 +21,7 @@ from routes.logout import logout_bp
 from routes.register import register_bp
 from routes.home import home_bp
 from routes.profile import profile_bp
+from routes.healthz import healthz_bp
 
 # Register blueprints
 app.register_blueprint(login_bp)
@@ -28,6 +29,7 @@ app.register_blueprint(logout_bp)
 app.register_blueprint(register_bp)
 app.register_blueprint(home_bp)
 app.register_blueprint(profile_bp)
+app.register_blueprint(healthz_bp)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
