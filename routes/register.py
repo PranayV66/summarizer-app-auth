@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, request, current_app, g
 from . import mysql
 import re, hashlib
 
-register_bp = Blueprint('register', __name__)
+register_bp = Blueprint('register', __name__, url_prefix='/auth')
 
-@register_bp.route('/auth/register', methods=['GET', 'POST'])
+@register_bp.route('/register', methods=['GET', 'POST'])
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:

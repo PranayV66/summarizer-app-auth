@@ -5,9 +5,9 @@ import datetime
 import MySQLdb.cursors #type: ignore
 import hashlib
 
-login_bp = Blueprint('login', __name__)
+login_bp = Blueprint('login', __name__, url_prefix='/auth')
 
-@login_bp.route('/auth/login', methods=['GET', 'POST'])
+@login_bp.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
