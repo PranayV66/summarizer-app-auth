@@ -2,7 +2,7 @@ from flask import Flask #type: ignore
 import os
 from routes import init_app
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/auth/static')
 
 app.secret_key = os.environ.get('APP_SECRET_KEY')
 app.domain = os.environ.get('APP_DOMAIN')
