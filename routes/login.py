@@ -33,10 +33,8 @@ def login():
             print ("Token in login.py: ", token)
 
             response = make_response(redirect(url_for('home.home')))
-            response.set_cookie('token', token, httponly=True, secure=False, samesite='Strict', domain=current_app.domain)
-            # response.set_cookie('token', token, httponly=True, secure=True, samesite='Strict')
+            response.set_cookie('token', token, httponly=True, secure=True, samesite='Strict', domain=current_app.domain)
             return response
-            # return redirect(url_for('home.home'))
         else:
             msg = 'Incorrect username/password!'
     return render_template('index.html', msg=msg)
